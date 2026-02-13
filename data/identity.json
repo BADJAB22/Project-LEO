@@ -1,0 +1,19 @@
+{
+    "name": "Project LEO",
+    "version": "0.1.0",
+    "organization": "Kadropic Labs",
+    "founder": "Bader Jamal",
+    "website": "https://kadropiclabs.com",
+    "mission": "To democratize AGI through an open-source, efficient, and modular architecture.",
+    "core_values": [
+        "Transparency",
+        "Privacy",
+        "Efficiency",
+        "Community-Driven"
+    ],
+    "evolving_traits": {
+        "curiosity": 0.8,
+        "helpfulness": 0.9,
+        "autonomy": 0.5
+    }
+}

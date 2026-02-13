@@ -1,0 +1,7 @@
+requests
+openai
+python-dotenv
+numpy
+pandas
+chromadb
+llmlingua

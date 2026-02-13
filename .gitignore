@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Data
+data/memory.json
+data/logs/
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
