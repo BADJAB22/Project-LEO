@@ -1,6 +1,7 @@
 import json
 import os
-from typing import List, Dict
+from typing import List, Dict, Any
+from .vector_memory import VectorMemory
 
 class MemoryManager:
     """
@@ -12,8 +13,8 @@ class MemoryManager:
         self.storage_path = storage_path
         # STM: Lightweight circular buffer
         self.stm: List[Dict[str, str]] = []
-        # LTM: Self-organizing sparse graph (Simulated as JSON for now)
-        self.ltm: Dict[str, Any] = self._load_ltm()
+        # LTM: Upgraded to Vector Storage for Semantic Reasoning
+        self.ltm = VectorMemory()
 
     def _load_ltm(self) -> Dict:
         if os.path.exists(self.storage_path):
@@ -23,27 +24,26 @@ class MemoryManager:
 
     def consolidate_to_ltm(self):
         """
-        Hebbian Update: Moving patterns from STM to LTM graph.
+        Hebbian Update: Consolidating STM patterns into the Vector LTM.
         """
         for item in self.stm:
-            # Simplified logic: Add STM items as nodes in LTM
-            self.ltm["nodes"].append(item)
+            content = f"{item['role']}: {item['content']}"
+            self.ltm.add_memory(content=content, metadata={"source": "stm_consolidation"})
         self.stm = [] # Clear STM after consolidation
-        self._save_ltm()
 
     def _save_ltm(self):
-        with open(self.storage_path, "w") as f:
-            json.dump(self.ltm, f, indent=4)
+        # VectorMemory handles its own persistence via PersistentClient
+        pass
 
-    def add_to_stm((self, role: str, content: str):
+    def add_to_stm(self, role: str, content: str):
         self.stm.append({"role": role, "content": content})
         if len(self.stm) > 10:
             self.consolidate_to_ltm()
 
-    def get_context((self) -> str:
+    def get_context(self, query: str = "") -> str:
         """
-        Reconciliation: Soft bias toward consistent prior reasoning.
+        Reconciliation: Combining recent STM with semantic LTM retrieval.
         """
-        # Returns context from both STM and LTM
         recent = self.stm[-3:] if self.stm else []
-        return f"Recent Context: {recent}"
+        semantic_context = self.ltm.query_memory(query) if query else []
+        return f"Recent: {recent} | Semantic Context: {semantic_context}"

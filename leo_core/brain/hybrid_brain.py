@@ -2,6 +2,8 @@ import os
 import json
 import time
 from typing import Dict, Any, List
+import numpy as np
+from .admm_engine import ADMMEngine
 
 class HybridBrain:
     """
@@ -14,6 +16,7 @@ class HybridBrain:
         self.identity = self._load_identity()
         self.cognitive_load = 0.0
         self.risk_threshold = 0.7
+        self.admm = ADMMEngine(dimension=64) # Consensus engine
         
         # SELC: Self-Evolving Local Circuits
         # Default circuit: Encoding -> Memory -> Planning -> Safety -> Consensus
@@ -30,14 +33,22 @@ class HybridBrain:
         """
         Executes the cognitive pipeline defined by the current SELC circuit.
         """
-        state = {"input": request, "context": self.memory.get_context()}
+        # Dynamic context retrieval based on the request
+        state = {"input": request, "context": self.memory.get_context(query=request)}
+        
+        # Add to STM
+        self.memory.add_to_stm("user", request)
         
         print(f"[SELC] Executing Circuit: {' -> '.join(self.current_circuit)}")
         
         for op in self.current_circuit:
             state = self._execute_op(op, state)
             
-        return state.get("response", "Internal Processing Error")
+        # Add response to STM
+        response = state.get("response", "Internal Processing Error")
+        self.memory.add_to_stm("leo", response)
+        
+        return response
 
     def _execute_op(self, op: str, state: Dict) -> Dict:
         """
@@ -78,9 +89,18 @@ class HybridBrain:
         return state
 
     def _op_admm_consensus(self, state: Dict) -> Dict:
-        # Byzantine-Resilient ADMM Consensus (Simulated)
-        # In a real mesh, this would involve network communication
-        state["response"] = f"LEO Consensus: {state['best_plan']}"
+        # Byzantine-Resilient ADMM Consensus
+        # 1. Convert plan to a numerical representation (Simulated embedding)
+        target = np.random.rand(64) 
+        
+        # 2. Run ADMM steps
+        self.admm.local_step(target)
+        self.admm.global_update(self.admm.theta) # Local loopback for now
+        self.admm.dual_update()
+        
+        consensus_val = np.mean(self.admm.get_consensus_state())
+        
+        state["response"] = f"LEO Consensus (Value: {consensus_val:.4f}): {state['best_plan']}"
         return state
 
     def update_circuit(self, task_signature: Dict):

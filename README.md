@@ -58,16 +58,22 @@ The **SELC** module is the "Meta-Architectural" layer. It allows LEO nodes to:
 
 ## 🛠 System Flow: The Cognitive Pipeline
 
-Every interaction in LEO follows a rigorous 8-step cognitive process:
+Project LEO has transitioned from a theoretical framework to an active implementation. Every interaction now follows a rigorous cognitive process:
 
 1.  **Encoding:** Input is transformed into a latent state.
-2.  **Memory Reconciliation:** Interaction between STM and LTM to find relevant history.
+2.  **Memory Reconciliation:** Interaction between STM and the newly implemented **Vector LTM (ChromaDB)** for semantic context retrieval.
 3.  **Conceptual Linking:** Mapping the state to the internal Concept Graph.
 4.  **Predictive Planning:** Simulating future trajectories via Monte Carlo Rollouts.
 5.  **Safety Filtering:** Multi-layer risk assessment (Composite Safety Potential).
-6.  **ADMM Consensus:** Reaching agreement with the decentralized mesh.
-7.  **ZKF Verification:** Final cryptographic attestation of the process.
+6.  **ADMM Consensus:** Reaching agreement via the **ADMMEngine**, solving distributed optimization problems locally.
+7.  **ZKF Verification:** Final cryptographic attestation (Phase 2 Development).
 8.  **Load Regulation:** Optimizing resource usage before final output.
+
+### 🆕 Recent Updates (Month 1)
+- **Vector Memory Integration:** Replaced static JSON storage with `ChromaDB` for semantic long-term memory.
+- **ADMM Consensus Engine:** Implemented the mathematical core of the Byzantine-resilient optimization protocol.
+- **SELC Refinement:** Enhanced Self-Evolving Local Circuits to handle dynamic context-aware processing.
+- **Bug Fixes:** Resolved critical issues in the hierarchical memory manager.
 
 ---
 
