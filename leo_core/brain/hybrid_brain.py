@@ -4,6 +4,7 @@ import time
 from typing import Dict, Any, List
 import numpy as np
 from .admm_engine import ADMMEngine
+from .zkf_layer import ZKFLayer
 from ..network.p2p_node import P2PNode
 
 class HybridBrain:
@@ -18,13 +19,14 @@ class HybridBrain:
         self.cognitive_load = 0.0
         self.risk_threshold = 0.7
         self.admm = ADMMEngine(dimension=64) # Consensus engine
+        self.zkf = ZKFLayer(node_id=self.identity.get("name", "LEO-Node")) # ZKF Layer
         self.p2p = P2PNode(port=p2p_port) # Networking layer
         self.p2p.on_message_received = self._handle_network_message
         self.p2p.start()
         
         # SELC: Self-Evolving Local Circuits
-        # Default circuit: Encoding -> Memory -> Planning -> Safety -> Consensus
-        self.current_circuit = ["ENC", "MEM", "PLAN", "SAFETY", "CONS"]
+        # Default circuit: Encoding -> Memory -> Planning -> Safety -> Consensus -> ZKF
+        self.current_circuit = ["ENC", "MEM", "PLAN", "SAFETY", "CONS", "ZKF"]
 
     def _load_identity(self) -> Dict[str, Any]:
         identity_path = "data/identity.json"
@@ -68,6 +70,8 @@ class HybridBrain:
             return self._op_safety_filter(state)
         elif op == "CONS":
             return self._op_admm_consensus(state)
+        elif op == "ZKF":
+            return self._op_zkf_verification(state)
         return state
 
     def _op_encode(self, state: Dict) -> Dict:
@@ -106,6 +110,7 @@ class HybridBrain:
         
         # 1. Local Computation
         local_theta = self.admm.local_step(target)
+        state["local_theta"] = local_theta
         
         # 2. Broadcast local update to peers
         self.p2p.broadcast({
@@ -118,7 +123,35 @@ class HybridBrain:
         self.admm.dual_update()
         
         consensus_val = np.mean(self.admm.get_consensus_state())
-        state["response"] = f"LEO Decentralized Consensus (Value: {consensus_val:.4f}): {state['best_plan']}"
+        state["consensus_value"] = consensus_val
+        return state
+
+    def _op_zkf_verification(self, state: Dict) -> Dict:
+        """
+        ZKF Verification: Generates and verifies micro-attestations for the consensus step.
+        """
+        local_theta = state.get("local_theta", np.zeros(64))
+        # Simulate a semantic score from a Small-LM
+        semantic_score = 0.95 
+        
+        # Generate ZKF Fragment
+        fragment = self.zkf.generate_fragment(
+            local_state=self.admm.w, 
+            transformed_state=local_theta,
+            semantic_score=semantic_score
+        )
+        
+        # Verify Fragment
+        is_valid = self.zkf.verify_fragment(fragment)
+        
+        verification_status = "VERIFIED" if is_valid else "FAILED"
+        consensus_val = state.get("consensus_value", 0.0)
+        
+        state["response"] = (
+            f"LEO Decentralized Consensus (Value: {consensus_val:.4f}) | "
+            f"ZKF Status: {verification_status} | "
+            f"Plan: {state["best_plan"]}"
+        )
         return state
 
     def update_circuit(self, task_signature: Dict):
