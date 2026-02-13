@@ -72,8 +72,9 @@ Project LEO has transitioned from a theoretical framework to an active implement
 ### 🆕 Recent Updates (Month 1)
 - **Vector Memory Integration:** Replaced static JSON storage with `ChromaDB` for semantic long-term memory.
 - **ADMM Consensus Engine:** Implemented the mathematical core of the Byzantine-resilient optimization protocol.
+- **P2P Networking Layer:** Developed a decentralized peer-to-peer communication system for consensus sharing between nodes.
 - **SELC Refinement:** Enhanced Self-Evolving Local Circuits to handle dynamic context-aware processing.
-- **Bug Fixes:** Resolved critical issues in the hierarchical memory manager.
+- **Bug Fixes:** Resolved critical issues in the hierarchical memory manager and improved port management.
 
 ---
 

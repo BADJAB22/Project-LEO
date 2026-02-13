@@ -4,6 +4,7 @@ import time
 from typing import Dict, Any, List
 import numpy as np
 from .admm_engine import ADMMEngine
+from ..network.p2p_node import P2PNode
 
 class HybridBrain:
     """
@@ -11,12 +12,15 @@ class HybridBrain:
     A Decentralized Cognitive Architecture.
     """
     
-    def __init__(self, memory):
+    def __init__(self, memory, p2p_port: int = 5000):
         self.memory = memory
         self.identity = self._load_identity()
         self.cognitive_load = 0.0
         self.risk_threshold = 0.7
         self.admm = ADMMEngine(dimension=64) # Consensus engine
+        self.p2p = P2PNode(port=p2p_port) # Networking layer
+        self.p2p.on_message_received = self._handle_network_message
+        self.p2p.start()
         
         # SELC: Self-Evolving Local Circuits
         # Default circuit: Encoding -> Memory -> Planning -> Safety -> Consensus
@@ -88,19 +92,33 @@ class HybridBrain:
             state["response"] = "[SAFETY BLOCK] Action violates ethical protocols."
         return state
 
+    def _handle_network_message(self, message: Dict, address: tuple):
+        """Callback for processing incoming consensus updates from peers."""
+        if message.get("type") == "ADMM_UPDATE":
+            remote_theta = np.array(message.get("theta"))
+            # Update global consensus state based on peer data
+            self.admm.global_update(remote_theta)
+            print(f"[Network] Received consensus update from {address}")
+
     def _op_admm_consensus(self, state: Dict) -> Dict:
         # Byzantine-Resilient ADMM Consensus
-        # 1. Convert plan to a numerical representation (Simulated embedding)
         target = np.random.rand(64) 
         
-        # 2. Run ADMM steps
-        self.admm.local_step(target)
-        self.admm.global_update(self.admm.theta) # Local loopback for now
+        # 1. Local Computation
+        local_theta = self.admm.local_step(target)
+        
+        # 2. Broadcast local update to peers
+        self.p2p.broadcast({
+            "type": "ADMM_UPDATE",
+            "theta": local_theta.tolist()
+        })
+        
+        # 3. Global update & Dual update
+        self.admm.global_update(local_theta) # Self-update
         self.admm.dual_update()
         
         consensus_val = np.mean(self.admm.get_consensus_state())
-        
-        state["response"] = f"LEO Consensus (Value: {consensus_val:.4f}): {state['best_plan']}"
+        state["response"] = f"LEO Decentralized Consensus (Value: {consensus_val:.4f}): {state['best_plan']}"
         return state
 
     def update_circuit(self, task_signature: Dict):

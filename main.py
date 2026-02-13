@@ -8,8 +8,9 @@ def main():
     print("Initializing AGI-Oriented Agent...")
     
     # Initialize Memory and Brain
+    p2p_port = int(os.getenv("LEO_PORT", 5000))
     memory = MemoryManager()
-    brain = HybridBrain(memory=memory)
+    brain = HybridBrain(memory=memory, p2p_port=p2p_port)
     
     print("Project LEO is ready. (Type 'exit' to quit)")
     

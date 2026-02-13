@@ -10,7 +10,7 @@ def test_leo_evolution():
     
     # Initialize
     memory = MemoryManager()
-    brain = HybridBrain(memory=memory)
+    brain = HybridBrain(memory=memory, p2p_port=5005) # Use a specific test port
     
     # 1. Test Learning (STM to LTM Consolidation)
     print("\n[Test 1] Learning and Consolidation...")
