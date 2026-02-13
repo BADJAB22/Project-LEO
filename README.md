@@ -1,86 +1,120 @@
-# Project LEO: Decentralized Cognitive Architecture (LEO)
+# Project LEO: Layered Emergent Organism
+### Decentralized Cognitive Architecture for AGI-Level Intelligence
 
-![Project LEO Banner](https://via.placeholder.com/1200x400?text=Project+LEO+-+Layered+Emergent+Organism)
+[![Whitepaper](https://img.shields.io/badge/Whitepaper-Download-blue.svg)](./LEO_Whitepaper.docx)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Organization: Kadropic Labs](https://img.shields.io/badge/Organization-Kadropic%20Labs-black.svg)](https://kadropiclabs.com)
 
-## Introduction
+---
 
-Project LEO (Layered Emergent Organism), developed by Kadropic Labs, is a pioneering open-source initiative designed to achieve Artificial General Intelligence (AGI) through a decentralized, layered cognitive architecture. Unlike traditional AI assistants, LEO is built as a self-organizing organism capable of autonomous reasoning, predictive planning, and cryptographic verification without centralized control.
+## 🚀 Overview
 
-## Vision & Philosophy
+**Project LEO (Layered Emergent Organism)** is a next-generation, decentralized cognitive architecture developed by **Kadropic Labs**. Designed by **Bader Jamal**, LEO represents a fundamental shift from static AI models to a self-organizing, autonomous intelligence mesh. 
 
-At Kadropic Labs, we envision AGI as a decentralized fabric of intelligence. Project LEO is not just a tool; it is a **Decentralized Cognitive Architecture** that combines neuromorphic memory, graph-based reasoning, and Byzantine-resilient consensus to create a system that is simultaneously intelligent, secure, and scalable.
+LEO is engineered to achieve AGI-level capabilities through a distributed fabric that integrates neuromorphic memory, graph-based reasoning, and Byzantine-resilient consensus mechanisms. It is designed to be simultaneously intelligent, secure, and infinitely scalable without centralized control.
 
-### Core Principles
+---
 
-*   **Emergent Intelligence:** Intelligence arises from the interaction of modular cognitive layers (Memory, Concepts, Planning, Safety).
-*   **Decentralized Sovereignty:** Each node maintains its own state and memory, contributing to a global consensus without revealing raw data.
-*   **Cryptographic Correctness:** Utilizing Distributed Zero-Knowledge Fragmentation (ZKF) to ensure every reasoning step is verified.
-*   **Self-Evolution:** Through Self-Evolving Local Circuits (SELC), LEO dynamically reconstructs its computational pipeline based on task complexity.
+## 📖 Technical Whitepaper
 
-## Technical Architecture
+For a deep dive into the mathematical foundations, consensus protocols, and cryptographic proofs (ZKF-Layer), please refer to the official whitepaper:
 
-Project LEO is structured into distinct but interconnected cognitive modules, as outlined in our technical blueprint:
+👉 **[Download Project LEO Whitepaper (DOCX)](./LEO_Whitepaper.docx)**
 
-### 1. Core Consensus Mechanism (Byzantine-Resilient ADMM)
-LEO achieves collective reasoning through a distributed optimization protocol based on ADMM (Alternating Direction Method of Multipliers). This allows nodes to reach a global consensus state (**w**) while solving local objective functions, ensuring convergence even under adversarial conditions.
+---
+
+## 🧠 Core Architectural Modules
+
+LEO is built upon a modular framework where intelligence emerges from the interaction of specialized cognitive layers:
+
+### 1. Core Consensus (Byzantine-Resilient ADMM)
+LEO utilizes a distributed optimization protocol based on **ADMM (Alternating Direction Method of Multipliers)**. This allows the global network to solve complex objective functions:
+*   **Local Computation:** Nodes solve local problems based on their unique context.
+*   **Secure Aggregation:** Byzantine-resilient aggregators ensure global coherence even if a portion of the network is adversarial.
+*   **Convergence:** Guaranteed alignment to a global state (**w**) without a central server.
 
 ### 2. Hierarchical Memory System (STM & LTM)
-*   **Short-Term Memory (STM):** A lightweight circular buffer for recent representations and immediate context.
-*   **Long-Term Memory (LTM):** A self-organizing sparse graph that encodes episodic states and co-activation patterns using Hebbian update rules.
+Inspired by human neurobiology, LEO employs a dual-layered memory:
+*   **Short-Term Memory (STM):** A high-speed circular buffer for immediate context and sensory processing.
+*   **Long-Term Memory (LTM):** A sparse, self-organizing graph. Using **Hebbian Update Rules**, LEO consolidates frequent patterns into long-term knowledge nodes and edges.
 
-### 3. Conceptual Reasoning & Abstraction
-LEO transforms raw observations into latent concept embeddings. A dynamic **Concept Graph** encodes semantic relationships, enabling cross-domain transfer learning and computational compression.
+### 3. Conceptual Reasoning & Dynamic Linking
+Beyond raw data, LEO operates on **Concepts**. 
+*   **Concept Graphs (CG):** Dynamic structures that encode semantic relationships.
+*   **Abstraction:** The system compresses episodic experiences into latent concept embeddings, enabling cross-domain transfer learning.
 
-### 4. Predictive Simulation & Planning
-Each node maintains a local transition model for forward modeling. Using Monte Carlo Rollouts, LEO simulates potential future trajectories and scores them against goal alignment functions, allowing for adaptive planning depth.
+### 4. Distributed Zero-Knowledge Fragmentation (ZKF-Layer)
+A breakthrough in AI safety and privacy. LEO decomposes cryptographic proofs into **micro-attestations**:
+*   **Sub-millisecond Verification:** Reasoning steps are verified cryptographically without the latency of traditional ZKPs.
+*   **Semantic Consistency:** Small-LMs provide a "checksum" to ensure updates are logically and semantically sound.
 
-### 5. Multi-Layer Safety & Ethical Control
-Safety is baked into the architecture through a **Composite Safety Potential**. Every action is passed through a predictive risk assessment filter, which can block actions or escalate them for human approval based on violation potential.
+### 5. Self-Evolving Local Circuits (SELC)
+The **SELC** module is the "Meta-Architectural" layer. It allows LEO nodes to:
+*   **Dynamic Reconfiguration:** Rewrite their internal computational pipeline based on task complexity.
+*   **Path Optimization:** Use "Hot Paths" for routine tasks and "Deep Verified Paths" for high-risk reasoning.
+*   **Algorithmic Evolution:** Mutate and evolve reasoning flows over time.
 
-### 6. Distributed Zero-Knowledge Fragmentation (ZKF)
-LEO introduces a breakthrough in cryptographic AI: **ZKF**. Instead of monolithic proofs, correctness is decomposed into micro-attestations. This enables sub-millisecond verification of decentralized reasoning, ensuring that every update is mathematically and semantically consistent.
+---
 
-### 7. Self-Evolving Local Circuits (SELC)
-The SELC module allows LEO to dynamically rewrite its internal computation circuit. Based on task signatures, a node can simplify its reasoning path for routine tasks or escalate to deep, verified circuits for high-risk objectives.
+## 🛠 System Flow: The Cognitive Pipeline
 
-## System Flow
+Every interaction in LEO follows a rigorous 8-step cognitive process:
 
-The end-to-end processing pipeline follows a sophisticated cognitive flow:
-1.  **Input Encoding:** Raw data is transformed into a state representation.
-2.  **Memory Reconciliation:** State is reconciled between STM and LTM.
-3.  **Conceptual Linking:** Symbolic abstraction and semantic compression.
-4.  **Predictive Planning:** Future simulation and action selection.
-5.  **Safety Filtering:** Risk assessment and policy enforcement.
-6.  **ADMM Consensus:** Distributed agreement and Byzantine resilience.
-7.  **ZKF Verification:** Cryptographic proof of correctness.
-8.  **Output Generation:** Execution of the verified action.
+1.  **Encoding:** Input is transformed into a latent state.
+2.  **Memory Reconciliation:** Interaction between STM and LTM to find relevant history.
+3.  **Conceptual Linking:** Mapping the state to the internal Concept Graph.
+4.  **Predictive Planning:** Simulating future trajectories via Monte Carlo Rollouts.
+5.  **Safety Filtering:** Multi-layer risk assessment (Composite Safety Potential).
+6.  **ADMM Consensus:** Reaching agreement with the decentralized mesh.
+7.  **ZKF Verification:** Final cryptographic attestation of the process.
+8.  **Load Regulation:** Optimizing resource usage before final output.
 
-## Getting Started
+---
 
-Project LEO is designed for ease of deployment, allowing anyone to run their own node in the decentralized intelligence mesh.
+## 💻 Getting Started
 
 ### Installation
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/KadropicLabs/Project-LEO.git
-    cd Project-LEO
-    ```
-2.  **Run the installation script:**
-    ```bash
-    ./install.sh
-    ```
+Project LEO is designed for accessibility. You can deploy a node with a single command:
 
-### Configuration
-Configure your node's identity and API access in the `.env` file. LEO supports both local LLMs (via Llama/Ollama) and cloud-based models (GPT-4o, Gemini 2.5 Flash).
+```bash
+git clone https://github.com/KadropicLabs/Project-LEO.git
+cd Project-LEO
+chmod +x install.sh
+./install.sh
+```
 
-## About Kadropic Labs
+### Basic Usage
 
-Kadropic Labs is dedicated to the development of ethical, decentralized AGI. Project LEO represents our commitment to providing the world with a transparent and powerful cognitive framework.
+Run the main entry point to start the cognitive engine:
 
-*   **Website:** [kadropiclabs.com](https://kadropiclabs.com)
+```bash
+python3 main.py
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome the global community to join us in building the future of AGI. Whether you are interested in consensus algorithms, neural architectures, or AI safety, your contributions are vital.
+
+*   See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+*   Adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+---
+
+## 🛡 License
+
+Project LEO is open-source software licensed under the [MIT License](./LICENSE).
+
+---
+
+## 🌐 About Kadropic Labs
+
+**Kadropic Labs** is a research and development organization focused on decentralized intelligence. 
+
 *   **Founder:** Bader Jamal
+*   **Website:** [kadropiclabs.com](https://kadropiclabs.com)
+*   **Mission:** To democratize AGI through open-source, efficient, and modular architecture.
 
-## License
-
-Project LEO is released under the [MIT License](LICENSE).
+*"Intelligence is not a product; it is an emergent property of decentralized collaboration."*
