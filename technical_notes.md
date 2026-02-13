@@ -1,29 +1,29 @@
-# ملاحظات تقنية من الورقة البيضاء لـ Project-LEO
+# Technical Notes from Project-LEO Whitepaper
 
-## 1. بروتوكول الإجماع (Consensus Protocol - ADMM)
-الهدف هو تقليل دالة التكلفة العالمية بشكل موزع:
+## 1. Consensus Protocol (ADMM)
+The goal is to minimize the global cost function in a distributed manner:
 `minimize over {θ_i}, w ∈ C: Σ α_i f_i(θ_i; x_i) + Γ Ω(w) + λ Σ ||θ_i - w||_1`
 
-- **الخطوة 1 (الحساب المحلي):**
+- **Step 1 (Local Computation):**
   `θ_i^{k+1} = prox_{α/ρ f_i + (λ/ρ) ||·-w^k||_1} (w^k - u_i^k)`
-- **الخطوة 2 (التواصل الآمن):**
-  تشفير وضغط التحديثات `d_i^{k+1} = S(Q(θ_i^{k+1} + u_i^k))`
-- **الخطوة 3 (الإجماع العالمي):**
+- **Step 2 (Secure Communication):**
+  Encrypt and compress updates: `d_i^{k+1} = S(Q(θ_i^{k+1} + u_i^k))`
+- **Step 3 (Global Consensus):**
   `w^{k+1} = Π_C (Abyz({T_i d_i^{k+1}}) - (Γ/ρ) ∇Ω(w^k))`
-- **الخطوة 4 (تحديث المتغير المزدوج):**
+- **Step 4 (Dual Variable Update):**
   `u_i^{k+1} = u_i^k + θ_i^{k+1} - w^{k+1}`
 
-## 2. بنية الذاكرة (Memory Architecture)
-### الذاكرة قصيرة المدى (STM)
-تعمل كمخزن مؤقت دائري (Circular Buffer):
+## 2. Memory Architecture
+### Short-Term Memory (STM)
+Operates as a circular buffer:
 `θ_i^{t+1} = RNN_i(x_i^t, θ_i^t) + ε_i^t`
 
-### الذاكرة طويلة المدى (LTM)
-رسم بياني متناثر ينظم نفسه ذاتياً (Self-organizing Sparse Graph):
-- **تحديث Hebbian:** `ΔE(v_j, v_k) = η · sim(v_j, θ^t) · sim(v_k, θ^t)`
-- **إضافة عقدة:** إذا كان `max_j sim(v_j, θ_i^t) < τ_add` يتم إضافة `θ_i^t` كعقدة جديدة.
-- **التوافق (Reconciliation):** `θ_i^t ← θ_i^t + α Σ sim(v, θ_i^t) · v`
+### Long-Term Memory (LTM)
+A self-organizing sparse graph:
+- **Hebbian Update:** `ΔE(v_j, v_k) = η · sim(v_j, θ^t) · sim(v_k, θ^t)`
+- **Node Addition:** If `max_j sim(v_j, θ_i^t) < τ_add`, then `θ_i^t` is added as a new node.
+- **Reconciliation:** `θ_i^t ← θ_i^t + α Σ sim(v, θ_i^t) · v`
 
-## 3. طبقة ZKF (Zero-Knowledge Fragmentation)
-تقسيم البراهين إلى أجزاء صغيرة (Micro-attestations) للتحقق الفوري دون تأخير البلوكشين التقليدي.
-- استخدام "Small-LMs" كمدققين دلاليين (Semantic Checksum).
+## 3. ZKF Layer (Zero-Knowledge Fragmentation)
+Fragmenting proofs into micro-attestations for instant verification without traditional blockchain latency.
+- Uses "Small-LMs" as semantic checksums to ensure logical consistency.

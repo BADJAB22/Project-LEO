@@ -1,23 +1,23 @@
-# خطة تنفيذ تطوير Project-LEO
+# Project-LEO Implementation Roadmap
 
-بناءً على التحليل العميق للورقة البيضاء والكود الحالي، تم تحديد المهام التالية للشهر الأول من التطوير:
+Based on the technical analysis of the Whitepaper and current codebase, the following tasks are set for the first month of development:
 
-## المرحلة 1: ترقية نظام الذاكرة (Memory Evolution)
-- **الهدف:** الانتقال من تخزين JSON البسيط إلى قاعدة بيانات متجهية (Vector DB).
-- **العمل:** دمج `chromadb` لتنفيذ الذاكرة طويلة المدى (LTM) للسماح بالبحث الدلالي (Semantic Search) بدلاً من البحث النصي البسيط.
-- **التأثير:** تمكين LEO من استرجاع المعلومات بناءً على المعنى، وهو أمر ضروري لـ AGI.
+## Phase 1: Memory Evolution
+- **Goal:** Transition from simple JSON storage to a Vector Database.
+- **Action:** Integrate `chromadb` to implement Long-Term Memory (LTM), allowing for semantic retrieval instead of simple text matching.
+- **Impact:** Enables LEO to retrieve information based on meaning, which is essential for AGI.
 
-## المرحلة 2: تفعيل العقل الهجين (Brain Activation)
-- **الهدف:** استبدال العمليات المحاكية (Simulated) بعمليات فعلية تستخدم نماذج لغوية.
-- **العمل:** ربط `HybridBrain` بـ OpenAI API (أو نماذج مفتوحة المصدر) لتنفيذ مهام `Encoding` و `Planning`.
-- **التأثير:** تحويل LEO من "هيكل نظري" إلى "عميل ذكي" قادر على معالجة الطلبات فعلياً.
+## Phase 2: Brain Activation
+- **Goal:** Replace simulated operations with actual logic and model integration.
+- **Action:** Link `HybridBrain` to numerical consensus engines and eventually LLM APIs for Encoding and Planning.
+- **Impact:** Transforms LEO from a theoretical framework into an active intelligent agent.
 
-## المرحلة 3: تنفيذ بروتوكول ADMM الأولي
-- **الهدف:** بدء تنفيذ اللامركزية في اتخاذ القرار.
-- **العمل:** كتابة كود رياضي ينفذ معادلة ADMM المذكورة في الورقة البيضاء لتحديث حالة "الإجماع العالمي" (Global Consensus) محلياً كمرحلة أولى.
-- **التأثير:** إرساء الأساس الرياضي لشبكة الذكاء الاصطناعي اللامركزية.
+## Phase 3: Initial ADMM Protocol Implementation
+- **Goal:** Begin the implementation of decentralized decision-making.
+- **Action:** Write the mathematical core that executes the ADMM equations mentioned in the Whitepaper for local consensus state updates.
+- **Impact:** Lays the mathematical foundation for a decentralized AI network.
 
-## المرحلة 4: تحسين SELC (Self-Evolving Circuits)
-- **الهدف:** جعل النظام يختار مساره بناءً على تعقيد المهمة فعلياً.
-- **العمل:** استخدام `llmlingua` لتقييم تعقيد الطلب وتحديد ما إذا كان سيستخدم "المسار السريع" أو "المسار العميق".
-- **التأثير:** تحسين استهلاك الموارد وزيادة كفاءة النظام.
+## Phase 4: SELC Refinement (Self-Evolving Circuits)
+- **Goal:** Enable the system to choose its path based on actual task complexity.
+- **Action:** Use complexity signatures to determine whether to use "Fast Paths" or "Deep Paths."
+- **Impact:** Optimizes resource usage and increases system efficiency.
