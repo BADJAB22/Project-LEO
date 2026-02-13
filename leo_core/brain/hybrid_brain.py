@@ -1,70 +1,93 @@
 import os
 import json
-from typing import Dict, Any
+import time
+from typing import Dict, Any, List
 
 class HybridBrain:
     """
-    The core intelligence engine of Project LEO.
-    Implements a hybrid architecture to optimize for intelligence and token efficiency.
+    Project LEO: Layered Emergent Organism
+    A Decentralized Cognitive Architecture.
     """
     
     def __init__(self, memory):
         self.memory = memory
-        # In a real implementation, these would be initialized with API clients
-        self.small_model_name = "gemini-2.5-flash" 
-        self.large_model_name = "gpt-4o"
-        
-        # Load identity
         self.identity = self._load_identity()
+        self.cognitive_load = 0.0
+        self.risk_threshold = 0.7
+        
+        # SELC: Self-Evolving Local Circuits
+        # Default circuit: Encoding -> Memory -> Planning -> Safety -> Consensus
+        self.current_circuit = ["ENC", "MEM", "PLAN", "SAFETY", "CONS"]
 
     def _load_identity(self) -> Dict[str, Any]:
         identity_path = "data/identity.json"
         if os.path.exists(identity_path):
             with open(identity_path, "r") as f:
                 return json.load(f)
-        return {
-            "name": "LEO",
-            "version": "0.1.0",
-            "creator": "Kadropic Labs",
-            "goals": ["Help users efficiently", "Evolve intelligence", "Maintain privacy"]
-        }
+        return {"name": "LEO", "org": "Kadropic Labs"}
 
     def process_request(self, request: str) -> str:
         """
-        Processes a user request using the hybrid model logic.
+        Executes the cognitive pipeline defined by the current SELC circuit.
         """
-        # Step 1: Analyze complexity with the Small Model (Simulated)
-        complexity = self._classify_complexity(request)
+        state = {"input": request, "context": self.memory.get_context()}
         
-        # Step 2: Route to appropriate layer
-        if complexity == "low":
-            return self._handle_with_small_model(request)
-        elif complexity == "medium":
-            return self._handle_with_tools(request)
-        else:
-            return self._handle_with_large_model(request)
+        print(f"[SELC] Executing Circuit: {' -> '.join(self.current_circuit)}")
+        
+        for op in self.current_circuit:
+            state = self._execute_op(op, state)
+            
+        return state.get("response", "Internal Processing Error")
 
-    def _classify_complexity(self, request: str) -> str:
+    def _execute_op(self, op: str, state: Dict) -> Dict:
         """
-        Uses the small model to classify the request.
-        (Simplified logic for initial version)
+        Mapping SELC operators to cognitive functions.
         """
-        # In production, this would be an LLM call
-        if len(request.split()) < 5:
-            return "low"
-        elif "calculate" in request.lower() or "time" in request.lower():
-            return "medium"
+        if op == "ENC":
+            return self._op_encode(state)
+        elif op == "MEM":
+            return self._op_memory_reconciliation(state)
+        elif op == "PLAN":
+            return self._op_predictive_planning(state)
+        elif op == "SAFETY":
+            return self._op_safety_filter(state)
+        elif op == "CONS":
+            return self._op_admm_consensus(state)
+        return state
+
+    def _op_encode(self, state: Dict) -> Dict:
+        # Transforming raw input into internal representation
+        state["encoded_state"] = f"latent_vector({hash(state['input'])})"
+        return state
+
+    def _op_memory_reconciliation(self, state: Dict) -> Dict:
+        # STM ⇄ LTM Interaction
+        state["reconciled_context"] = self.memory.get_context()
+        return state
+
+    def _op_predictive_planning(self, state: Dict) -> Dict:
+        # Monte Carlo Rollout simulation (Simulated)
+        state["best_plan"] = f"Action based on {state['encoded_state']}"
+        return state
+
+    def _op_safety_filter(self, state: Dict) -> Dict:
+        # Composite Safety Potential assessment
+        risk_score = 0.1 # Simulated
+        if risk_score > self.risk_threshold:
+            state["response"] = "[SAFETY BLOCK] Action violates ethical protocols."
+        return state
+
+    def _op_admm_consensus(self, state: Dict) -> Dict:
+        # Byzantine-Resilient ADMM Consensus (Simulated)
+        # In a real mesh, this would involve network communication
+        state["response"] = f"LEO Consensus: {state['best_plan']}"
+        return state
+
+    def update_circuit(self, task_signature: Dict):
+        """
+        SELC: Dynamically reconfigures the circuit based on task complexity.
+        """
+        if task_signature.get("complexity") == "low":
+            self.current_circuit = ["ENC", "MEM", "CONS"] # Fast Path
         else:
-            return "high"
-
-    def _handle_with_small_model(self, request: str) -> str:
-        # Simulated fast response
-        return f"[Small Model] I understand your simple request: '{request}'. How can I help further?"
-
-    def _handle_with_tools(self, request: str) -> str:
-        # Simulated tool execution
-        return f"[Tools] Executing specialized tool for: '{request}'..."
-
-    def _handle_with_large_model(self, request: str) -> str:
-        # Simulated deep reasoning response
-        return f"[Large Model] Analyzing complex request: '{request}'. Based on my deep reasoning, here is a detailed response..."
+            self.current_circuit = ["ENC", "MEM", "PLAN", "SAFETY", "CONS"] # Deep Path
